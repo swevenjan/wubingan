@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>乌丙安思想数字研究中心</title>
+    <style>
+        /* 全局重置与基础样式 */
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {
+            font-family: "宋体", "SimSun", serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        a {text-decoration: none; color: inherit;}
+        ul {list-style: none;}
+
+        /* 导航栏 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 22px; /* 适当减小字体大小，避免过长 */
+            font-weight: bold;
+            color: #222;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap; /* 强制文本在一行显示 */
+            min-width: 0; /* 允许内容适当收缩 */
+        }
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-size: 16px;
+            flex-grow: 1;
+            overflow-x: visible;
+            position: relative;
+        }
+        .nav-links li {
+            flex-shrink: 0;
+            white-space: nowrap;
+            position: relative;
+        }
+        .nav-links li:hover .submenu {
+            display: block;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            padding: 10px 15px;
+            min-width: 150px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            z-index: 1002;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .submenu li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .search-input {
+            padding: 6px 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+        .search-btn {
+            padding: 6px 15px;
+            background: #c00;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* 轮播图（关键修改：高度自适应） */
+        /* 轮播图（高度100%显示，宽度自适应） */
+        .slider {
+            margin-top: 70px;  /* 与导航栏高度一致，避免重叠 */
+            width: 100%;
+            /* 高度占满屏幕剩余空间（屏幕高度 - 导航栏高度） */
+            height: calc(100vh - 70px);
+            min-height: 400px; /* 最小高度限制，避免内容过矮 */
+            position: relative;
+            overflow: hidden;
+            z-index: 999;
+            /* 背景色填充可能出现的空白区域 */
+            background-color: #f5f5f5;
+        }
+
+        /* 轮播图片容器 */
+        .slider-images {
+            height: 100%; /* 继承轮播图高度 */
+            display: flex;
+            transition: transform 0.5s;
+        }
+
+        /* 核心：单张图片样式（高度100%，宽度自适应） */
+        .slider-img {
+            min-width: 100%; /* 确保宽度至少填满容器 */
+            height: 100%;    /* 高度强制占满容器 */
+            /* 关键调整：高度优先，宽度自适应，保证图片完整显示 */
+            background-size: auto 100%; 
+            /* 图片水平居中，垂直顶部对齐（避免顶部裁剪） */
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-origin: border-box;
+        }
+
+        /* 轮播控制按钮 */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 999;
+        }
+        .slider-btn.prev {left: 0;}
+        .slider-btn.next {right: 0;}
+
+        /* 指示器样式 */
+        .slider-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 999;
+        }
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+        .indicator.active {background: #c00;}
+
+        /* 响应式调整（确保不同设备下的显示效果） */
+        @media (max-width: 768px) {
+            .slider {
+                margin-top: 60px; /* 移动端导航栏高度可能更小 */
+                height: calc(100vh - 60px);
+                min-height: 300px;
+            }
+            /* 移动端图片宽度优先，避免左右空白过大 */
+            .slider-img {
+                background-size: 100% auto;
+            }
+        }
+
+        /* 主体内容区 */
+        .main-content {
+            max-width: 100%;
+            margin: 40px auto 40px;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: minmax(300px, 3fr) minmax(150px, 1fr);
+            gap: 30px;
+            flex: 1 0 auto;
+        }
+        .main-section {
+            border: 1px solid #e5e5e5;
+            padding: 25px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 20px;
+            color: #222;
+            border-bottom: 2px solid #c00;
+            padding-bottom: 8px;
+            margin-bottom: 0;
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        .more-link {
+            color: #c00;
+            font-size: 14px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        .more-link::after {
+            content: "›";
+            margin-left: 5px;
+            font-size: 16px;
+        }
+        .news-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+        }
+        .news-list li:last-child {border-bottom: none;}
+        .news-date {color: #666; font-size: 14px;}
+        .sidebar {
+            border: 1px solid #e5e5e5;
+            padding: 25px;
+        }
+        .sidebar .section-title {margin-bottom: 15px;}
+        .link-list li {
+            padding: 8px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+        .link-list li::before {content: "›"; position: absolute; left: 0; color: #666;}
+
+        /* 页脚 */
+        .footer {
+            background: #333;
+            color: #999;
+            padding: 30px 20px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-links {display: flex; gap: 20px;}
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-links {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 10px;
+            }
+            .nav-links li {
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+            .submenu {
+                left: auto;
+                right: 0;
+            }
+            .logo {
+                font-size: 20px;
+                gap: 8px;
+            }
+            .logo-img {
+                height: 30px;
+            }
+            .main-content {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+            .main-section, .sidebar {
+                padding: 20px;
+            }
+            .slider {
+                height: 40vh;  /* 小屏幕降低轮播图高度 */
+            }
+        }
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 20px;
+            }
+            .search-input {
+                width: 150px;
+            }
+        }
+        @media (min-width: 1800px) {
+            .main-content, .footer-container {
+                max-width: 1600px;
+            }
+            .slider {
+                height: 60vh;  /* 大屏幕增加轮播图高度 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏（含搜索框） -->
+    <div class="header">
+        <div class="nav-container">
+           <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="./img/logo/logo.png" alt="辽宁大学logo" class="logo-img">
+                    乌丙安思想数字研究中心
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li>
+                    <a href="#">中心概况</a>
+                    <ul class="submenu">
+                        <li><a href="intro.html">机构简介</a></li>
+                        <li><a href="team.html">研究团队</a></li>
+                        <li><a href="history.html">历史沿革</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">学术研究</a>
+                    <ul class="submenu">
+                        <li><a href="#">核心思想</a></li>
+                        <li><a href="#">文献整理</a></li>
+                        <li><a href="#">最新成果</a></li>
+                        <li><a href="#">数字人文</a></li>
+                    </ul>
+                </li>
+                <li><a href="field.html">田野调查</a></li>
+                <li><a href="news.html">学术动态</a></li>
+                <li><a href="download.html">资料下载</a></li>
+            </ul>
+           <div class="search-box">
+    <input type="text" class="search-input" id="searchInput" placeholder="全局搜索..."/>
+    <a href="#" class="search-btn" onclick="redirectToSearch()">搜索</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 轮播图 -->
+    <div class="slider">
+        <div class="slider-images" id="sliderImages">
+            <div class="slider-img" style="background-image: url('./img/lunbotu001.jpg')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu002.jpg')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu003.jpg')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu004.jpg')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu005.jpg')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu006.png')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu007.png')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu008.png')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu009.png')"></div>
+            <div class="slider-img" style="background-image: url('./img/lunbotu010.png')"></div>
+        </div>
+        <button class="slider-btn prev" onclick="prevSlide()">&lt;</button>
+        <button class="slider-btn next" onclick="nextSlide()">&gt;</button>
+        <div class="slider-indicators" id="sliderIndicators">
+            <div class="indicator active" onclick="goToSlide(0)"></div>
+            <div class="indicator" onclick="goToSlide(1)"></div>
+            <div class="indicator" onclick="goToSlide(2)"></div>
+            <div class="indicator" onclick="goToSlide(3)"></div>
+            <div class="indicator" onclick="goToSlide(4)"></div>
+            <div class="indicator" onclick="goToSlide(5)"></div>
+            <div class="indicator" onclick="goToSlide(6)"></div>
+            <div class="indicator" onclick="goToSlide(7)"></div>
+            <div class="indicator" onclick="goToSlide(8)"></div>
+            <div class="indicator" onclick="goToSlide(9)"></div>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="main-content">
+        <div class="main-section">
+            <div class="section-header">
+                <h2 class="section-title">最新学术动态</h2>
+                <a href="news.html" class="more-link">更多</a>
+            </div>
+            <ul class="news-list" id="newsContent">
+                <li>
+                    <a href="news1.html">记录非遗保护先行者的足迹——《乌丙安回忆录》书后</a>
+                    <span class="news-date">2025-05-20</span>
+                </li>
+                <li>
+                    <a href="news2.html">守土有责，拓土有方：乌丙安学术研究谫论</a>
+                    <span class="news-date">2025-05-15</span>
+                </li>
+                <li>
+                    <a href="news3.html">守护文化记忆——乌丙安学术生涯回顾</a>
+                    <span class="news-date">2025-05-08</span>
+                </li>
+                <li>
+                    <a href="news4.html">“俗信”概念的确立与“妈祖信俗”申遗——乌丙安教授访谈录</a>
+                    <span class="news-date">2025-05-01</span>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar">
+            <h2 class="section-title">常用链接</h2>
+            <ul class="link-list">
+                <li><a href="https://www.chinesefolklore.org.cn/">中国民俗学会官网</a></li>
+                <li><a href="https://www.ihchina.cn/jigou_desc_details/175.html">中国非遗保护中心</a></li>
+                <li><a href="https://chinese.lnu.edu.cn/info/10233/71315.htm">辽宁大学民俗学系</a></li>
+                <li><a href="https://mp.weixin.qq.com/s/Thl-PCAAG-OtEknx_zhOwA">辽河风</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <div class="footer-container">
+            <p>地址：沈阳市皇姑区崇山中路66号 | 邮编：110036</p>
+            <div class="footer-links">
+                <a href="privacy.html">隐私声明</a>
+                <a href="sitemap.html">网站地图</a>
+                <a href="contact.html">联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 轮播图逻辑
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-img');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(n) {
+            currentSlide = (n + slides.length) % slides.length;
+            document.getElementById('sliderImages').style.transform = `translateX(-${currentSlide * 100}%)`;
+            indicators.forEach((ind, i) => ind.classList.toggle('active', i === currentSlide));
+        }
+
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+        function goToSlide(n) { showSlide(n); }
+        setInterval(nextSlide, 5000);  // 自动轮播
+
+        // 全局搜索逻辑
+        function globalSearch() {
+            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+            const contentAreas = [
+                ...document.querySelectorAll('.news-list a'),
+                ...document.querySelectorAll('.link-list a'),
+                ...document.querySelectorAll('.footer p')
+            ];
+
+            contentAreas.forEach(elem => {
+                const text = elem.textContent.toLowerCase();
+                const isMatch = text.includes(keyword);
+                elem.parentElement.style.display = isMatch ? 'flex' : 'none';
+                if (isMatch && keyword) {
+                    elem.innerHTML = elem.textContent.replace(
+                        new RegExp(keyword, 'gi'), 
+                        match => `<span style="color:#c00;font-weight:bold">${match}</span>`
+                    );
+                } else {
+                    elem.innerHTML = elem.textContent;
+                }
+            });
+        }
+    </script>
+
+    <!-- 悬浮聊天图标及对话框 -->
+<div class="chat-widget">
+    <!-- 聊天图标 -->
+    <div class="chat-icon" id="chatIcon">
+        <!-- 这里使用您自己的图片 -->
+        <img src="./img/chat01.png" alt="AI馆员" class="custom-chat-icon">
+    </div>
+    
+    <!-- 聊天对话框 -->
+    <div class="chat-dialog" id="chatDialog">
+        <!-- 对话框头部 -->
+        <div class="dialog-header">
+            <h3>AI馆员</h3>
+            <span class="close-btn" id="closeChat">&times;</span>
+        </div>
+        
+        <!-- 消息区域 -->
+        <div class="dialog-messages" id="messageContainer">
+            <div class="message received">
+                <div class="message-content">
+                    您好！我是AI馆员，欢迎咨询乌丙安思想研究中心相关问题，我会尽力为您解答。
+                </div>
+                <div class="message-time">09:00</div>
+            </div>
+        </div>
+        
+        <!-- 输入区域 -->
+        <div class="dialog-input">
+            <textarea id="messageInput" placeholder="请输入您的问题..."></textarea>
+            <button id="sendMessage">发送</button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* 自定义聊天图标样式 */
+.custom-chat-icon {
+    width: 100%;  /* 填满父容器 */
+    height: 100%; /* 填满父容器 */
+    border-radius: 50%; /* 保持圆形（如果您的图标是方形） */
+    object-fit: cover; /* 确保图片完整显示 */
+}
+
+/* 保持原有的.chat-icon样式不变，确保容器大小合适 */
+.chat-icon {
+    width: 60px;  /* 根据您的图标大小调整 */
+    height: 60px; /* 根据您的图标大小调整 */
+    /* 其他样式保持不变 */
+}
+
+/* 聊天组件样式 */
+.chat-widget {
+    position: fixed;
+    right: 30px;
+    bottom: 50px;
+    z-index: 9999;
+}
+
+/* 聊天图标样式 */
+.chat-icon {
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chat-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* 对话框样式 */
+.chat-dialog {
+    width: 320px;
+    height: 450px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    position: absolute;
+    right: 70px;
+    bottom: 0;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 对话框头部 */
+.dialog-header {
+    background-color: #07c160;
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.close-btn {
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+}
+
+/* 消息区域 */
+.dialog-messages {
+   flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #ffffff; /* 修改为纯白色背景 */
+    background-image: none; /* 移除背景图片 */
+}
+
+/* 消息样式 */
+.message {
+    margin-bottom: 15px;
+    max-width: 70%;
+}
+
+.message.received {
+    margin-right: auto;
+}
+
+.message.sent {
+    margin-left: auto;
+}
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 18px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.received.message-content {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-bottom-left-radius: 5px;
+}
+
+.sent.message-content {
+    background-color: #95ec69;
+    border-bottom-right-radius: 5px;
+}
+
+.message-time {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* 输入区域 */
+.dialog-input {
+    display: flex;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-top: 1px solid #e5e5e5;
+}
+
+#messageInput {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 15px;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+    height: 40px;
+}
+
+#sendMessage {
+    margin-left: 10px;
+    background-color: #07c160;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+#sendMessage:hover {
+    background-color: #06b054;
+}
+
+/* 动画效果 */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.chat-dialog.active {
+    display: flex;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.chat-dialog.closing {
+    animation: slideOut 0.3s ease forwards;
+}
+</style>
+
+<script>
+// 聊天功能交互
+document.addEventListener('DOMContentLoaded', function() {
+    const chatIcon = document.getElementById('chatIcon');
+    const chatDialog = document.getElementById('chatDialog');
+    const closeChat = document.getElementById('closeChat');
+    const messageInput = document.getElementById('messageInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const messageContainer = document.getElementById('messageContainer');
+    
+    // 切换对话框显示/隐藏
+    chatIcon.addEventListener('click', function() {
+        if (chatDialog.classList.contains('active')) {
+            closeDialog();
+        } else {
+            openDialog();
+        }
+    });
+    
+    // 关闭对话框
+    closeChat.addEventListener('click', closeDialog);
+    
+    // 发送消息
+    sendMessage.addEventListener('click', sendUserMessage);
+    
+    // 按Enter发送消息（Shift+Enter换行）
+    messageInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' &&!e.shiftKey) {
+            e.preventDefault();
+            sendUserMessage();
+        }
+    });
+    
+    // 打开对话框
+    function openDialog() {
+        chatDialog.classList.add('active');
+        chatDialog.classList.remove('closing');
+    }
+    
+    // 关闭对话框
+    function closeDialog() {
+        chatDialog.classList.add('closing');
+        chatDialog.classList.remove('active');
+        setTimeout(() => {
+            chatDialog.style.display = 'none';
+            chatDialog.classList.remove('closing');
+        }, 300);
+    }
+// 发送用户消息
+    function sendUserMessage() {
+        const message = messageInput.value.trim();
+        if (message) {
+            // 添加用户消息
+            addMessage(message, 'sent');
+            
+            // 清空输入框
+            messageInput.value = '';
+            
+            // 自动回复
+            setTimeout(() => {
+                const replies = [
+                    "○1（核心要素）动物崇拜与禁忌 （第七卷）北方农耕区对狐、鼬、蛇的崇拜（如“胡仙”“黄仙”），源于鼠患防御；虫王庙祭祀（农历六月六“虫王会”），祈求驱除蝗灾。（第一卷）第九章“居住习俗”中“吞口” 兽面装饰（屋脊避煞），及游牧民族对牧羊犬、猎鹰的驯化民俗，如鄂温克族驯鹰仪式。（章/节）第一卷第九章（关联规则）动物崇拜是生态防御的信仰化表达，居住与生产民俗隐含动物生态依赖。○2（核心要素）畜牧与渔猎民俗（第七卷）东北渔猎民族驯养鸬鹚捕鱼、猎犬围猎，衍生驯鹰民俗；蒙古族“祭马奶酒” 仪式，与游牧生态中马的经济地位关联。（第一卷）第五章 “物质生产民俗”中，北方游牧民族的“套马”“驯鹰”技艺，及满族 “雪祭” 中对猎犬的祭祀。（章/节）第一卷第五章（关联规则）生产民俗直接反映动物资源的利用方式，仪式强化生态依赖。○3（核心要素）食物链象征（第七卷）北方“杀年猪”习俗中，猪作为农耕社会肉食来源的核心地位；萨满神服上的动物纹样（如熊、鹰），象征人与动物的灵性联结。（第一卷）第七章 “服饰习俗”中，鄂伦春族狍皮服饰的制作工艺，及 “兽骨占卜”民俗（如鹿肩胛骨占卜狩猎吉凶）。（章/节）第一卷第七章、第五章（关联规则）服饰与占卜民俗体现动物在食物链中的符号化意义。"
+                ];
+                const randomReply = replies[Math.floor(Math.random() * replies.length)];
+                addMessage(randomReply, 'received');
+            }, 1000);
+        }
+    }
+
+
+    // 添加消息到对话框
+    function addMessage(text, type) {
+        const now = new Date();
+        const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+        
+        messageDiv.innerHTML = `
+            <div class="message-content">${text}</div>
+            <div class="message-time">${timeString}</div>
+        `;
+        
+        messageContainer.appendChild(messageDiv);
+        messageContainer.scrollTop = messageContainer.scrollHeight; // 滚动到底部
+    }
+});
+
+ // 全局搜索逻辑
+        <!-- 其他页面的搜索框 -->
+
+
+
+function redirectToSearch() {
+    const keyword = document.getElementById('searchInput').value.trim();
+    if (keyword) {
+        window.location.href = `research.html`;
+    } else {
+        // 关键词为空时的处理
+        alert('请输入搜索关键词');
+    }
+    return false; // 阻止链接默认行为
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记录非遗保护先行者的足迹——《乌丙安回忆录》书后 - 乌丙安思想数字研究中心</title>
+    <!-- 引入全站通用样式 -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link href="lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 当前页面特有样式 -->
+   <style>
+   
+        /* 关键修改：为主要内容区域添加顶部间距，避免被固定导航栏遮挡 */
+        .main-content {
+            padding-top: 80px; /* 根据导航栏实际高度调整，一般80-120px */
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 20px;
+        }
+        
+        .news-box {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        
+        .sidebar-box {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        /* 文章标题样式 */
+.article-title {
+    font-size: 28px;
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+/* 文章元信息样式 */
+.article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.article-meta i {
+    margin-right: 5px;
+    color: #003366;
+}
+
+/* 文章内容样式 */
+.article-content {
+    line-height: 1.8;
+    color: #333;
+}
+
+.article-image {
+    width: auto;
+    height: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.lead-paragraph {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 22px;
+    color: #003366;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.highlight-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.highlight-list li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.highlight-list li i {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    color: #28a745;
+}
+
+.article-quote {
+    background-color: #f8f9fa;
+    border-left: 4px solid #003366;
+    padding: 15px 20px;
+    margin: 25px 0;
+    font-style: italic;
+}
+
+.article-quote footer {
+    margin-top: 10px;
+    font-style: normal;
+    color: #666;
+}
+
+.article-tags {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.tag-label {
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #003366;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.tag:hover {
+    background-color: #e0e0e0;
+}
+
+/* 文章底部样式 */
+.article-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.article-share {
+    margin-bottom: 20px;
+}
+
+.share-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #003366;
+    color: white;
+    border-radius: 50%;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+.share-icon:hover {
+    background-color: #0056b3;
+}
+
+.article-navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.prev-article, .next-article {
+    font-size: 14px;
+    color: #003366;
+    text-decoration: none;
+}
+
+.prev-article:hover, .next-article:hover {
+    text-decoration: underline;
+}
+/* 侧边栏通用样式 */
+.sidebar-widget {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar-widget:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.widget-title {
+    font-size: 18px;
+    color: #003366;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #003366;
+    position: relative;
+}
+
+.widget-title::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 30%;
+    height: 2px;
+    background-color: #0056b3;
+}
+
+/* 学术资源样式 */
+.resource-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.resource-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: #333;
+}
+
+.resource-item:hover {
+    border-color: #003366;
+    background-color: #f8fafc;
+}
+
+.resource-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+/* 作者简介样式 */
+.author-widget {
+    text-align: center;
+}
+
+.author-avatar {
+    margin-bottom: 15px;
+}
+
+.avatar-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.author-bio {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.author-stats {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-count {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    color: #003366;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 相关阅读样式 */
+.related-articles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.related-item {
+    margin-bottom: 15px;
+}
+
+.related-link {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.related-link:hover {
+    color: #003366;
+}
+
+.related-thumb {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.related-content {
+    flex: 1;
+}
+
+.related-title {
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.related-date {
+    font-size: 12px;
+    color: #666;
+    display: block;
+    margin-top: 5px;
+}
+
+/* 标签云样式 */
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-cloud-item {
+    padding: 5px 12px;
+    background-color: #f5f5f5;
+    color: #003366;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.tag-cloud-item:hover {
+    background-color: #003366;
+    color: white;
+}
+    </style>
+</head>
+<body>
+    <!-- 导航栏（与主页完全相同） -->
+    <div class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="./img/logo/logo.png" alt="辽宁大学logo" class="logo-img">
+                    乌丙安思想数字研究中心
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li>
+                    <a href="#">中心概况</a>
+                    <ul class="submenu">
+                        <li><a href="intro.html">机构简介</a></li>
+                        <li><a href="team.html">研究团队</a></li>
+                        <li><a href="history.html">历史沿革</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">学术研究</a>
+                    <ul class="submenu">
+                        <li><a href="#">核心思想</a></li>
+                        <li><a href="#">文献整理</a></li>
+                        <li><a href="#">最新成果</a></li>
+                    </ul>
+                </li>
+                <li><a href="field.html">田野调查</a></li>
+                <li><a href="news.html">学术动态</a></li>
+                <li><a href="download.html">资料下载</a></li>
+            </ul>
+            <div class="search-box">
+    <input type="text" class="search-input" id="searchInput" placeholder="全局搜索..."/>
+    <a href="#" class="search-btn" onclick="redirectToSearch()">搜索</a>
+            </div>
+        </div>
+    </div>
+
+  <!-- 中间内容区域 -->
+<div class="container main-content">
+    <!-- 主要内容区（左侧大方框） -->
+    <div class="news-box">
+        <!-- 文章标题区域 -->
+        <div class="article-header">
+            <h1 class="article-title">记录非遗保护先行者的足迹——《乌丙安回忆录》书后</h1>
+            <div class="article-meta">
+                <span class="article-author">
+                    <i class="fa fa-user"></i> 刘勍    发表于《中国非物质文化遗产》
+                </span>
+                <span class="article-date">
+                    <i class="fa fa-calendar"></i> 2024年11月15日
+                </span>
+                <span class="article-category">
+                    <i class="fa fa-folder"></i> 学术动态
+                </span>
+                <span class="article-views">
+                    <i class="fa fa-eye"></i> 阅读: 1,234
+                </span>
+            </div>
+        </div>
+        
+        <!-- 文章内容区域 -->
+        <div class="article-content">
+            <img src="img/news1.jpg" alt="记录非遗保护先行者的足迹——《乌丙安回忆录》书后封面" class="article-image">
+            
+            <p class="lead-paragraph">
+               迈入新世纪以来，非物质文化遗产保护成为举国上下努力推进的伟大文化事业，凝聚了无数人的心血和智慧。一批各自领域内的专家学者作为先觉者、先行者加入到非遗保护的队伍中来，他们以前半生对我国优秀传统文化、民间文化累积的田野调查经验和学术研究成果为基础，为我国非遗保护事业做了大量的筹备和辨析工作，切实推动了我国非物质文化遗产的保护进度。他们的奉献是充分发挥学者的引领作用，推动非遗保护事业走出一条具有中国特色的道路。民俗学家、民间文艺学家乌丙安是最先参与到我国非遗保护工作的专家学者之一，也是我国非遗理论的拓荒者之一。
+            </p>
+               <p class="lead-paragraph"></p>
+            <p>
+                2023年6月，《非物质文化遗产学术研究—亲历者口述史》系列丛书之《乌丙安回忆录》出版，这是该丛书第一辑“学术大家”的收官之作。该书由乌丙安口述，是他生前最后一部学术著作。该书的面世有着非同寻常的意义：首先，这是远去的学术巨匠留给读者的一份“文化遗产”，读者会通过它再次感受到乌丙安的学识修养和人格魅力。其次，该书的出版增强了非遗学科建设的科学性，为学人带来学术指引，代表着乌丙安学术脚步的延续。最后，乌丙安对非遗事件的回溯和对非遗历史的描摹，揭示了非遗保护工作中不为平常人所知的一面。该书不仅是对历史事件原貌的还原，也是对非遗保护历程完整性的补充，它的出版将进一步证明我国非物质文化遗产保护的价值和意义。
+            </p>
+               <p class="lead-paragraph"></p>
+             <p>
+                全书紧扣非遗主题，根据乌丙安丰富、生动、具体的叙述，梳理了我国非遗保护的历史，有针对性地厘清了作为交叉学科的非遗领域中纵横交错的学术命题。乌丙安深邃的思想内涵、强有力的学术观点和求真务实的治学态度，使该书内容在他感性的叙述中极富理论性和指导性，形成口述史和非遗学术和谐共生之态。在对其理论的阐述和对实践的理解中，乌丙安以其开阔的视野、精深的学术造诣，使该书全面且立体起来。这部系统性体现非遗学术价值和彰显个人表现力的书籍，将为读者和学界带来精神力量与学术能量。
+            </p>
+
+
+            
+            <div class="article-tags">
+                <span class="tag-label">关键词：</span>
+                <a href="#" class="tag">民俗学</a>
+                <a href="#" class="tag">乌丙安</a>
+                <a href="#" class="tag">学术著作</a>
+                <a href="#" class="tag">传统文化</a>
+                <a href="#" class="tag">修订版</a>
+            </div>
+        </div>
+        
+        <!-- 文章底部互动区域 -->
+            <div class="article-footer">
+                <div class="article-share">
+                    <span>分享本文：</span>
+                    <a href="#" class="share-icon weibo">
+                        <i class="fa fa-weibo"></i>
+                    </a>
+                    <a href="#" class="share-icon wechat">
+                        <i class="fa fa-wechat"></i>
+                    </a>
+                    <a href="#" class="share-icon qq">
+                        <i class="fa fa-qq"></i>
+                    </a>
+                    <a href="#" class="share-icon linkedin">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="share-icon twitter">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="#" class="share-icon facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </div>
+            
+            <div class="article-navigation">
+                <a href="news4.html" class="prev-article">
+                    <i class="fa fa-angle-left"></i> 上一篇：“俗信”概念的确立与“妈祖信俗”申遗——乌丙安教授访谈录
+                </a>
+                <a href="news2.html" class="next-article">
+                    下一篇：守土有责，拓土有方：乌丙安学术研究谫论 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+        <!-- 右侧边栏 -->
+<div class="sidebar-box">
+    <!-- 学术直达 -->
+    <div class="sidebar-widget">
+        <h3 class="widget-title">学术资源</h3>
+        <div class="resource-links">
+            <a href="https://kns.cnki.net/kns8s/defaultresult/index?crossids=YSTT4HG0%2CLSTPFY1C%2CJUP3MUPD%2CMPMFIG1A%2CWQ0UVIAA%2CBLZOG7CK%2CPWFIRAGL%2CEMRPGLPA%2CNLBO1Z6R%2CNN3FJMUV&korder=SU&kw=%E8%AE%B0%E5%BD%95%E9%9D%9E%E9%81%97%E4%BF%9D%E6%8A%A4%E5%85%88%E8%A1%8C%E8%80%85%E7%9A%84%E8%B6%B3%E8%BF%B9%E2%80%94%E2%80%94%E3%80%8A%E4%B9%8C%E4%B8%99%E5%AE%89%E5%9B%9E%E5%BF%86%E5%BD%95%E3%80%8B%E4%B9%A6%E5%90%8E" target="_blank" class="resource-item">
+                <img src="img/cnki-logo.png" alt="中国知网" class="resource-icon">
+                <span class="resource-text">中国知网</span>
+            </a>
+            <a href="https://d.wanfangdata.com.cn/periodical/CiNQZXJpb2RpY2FsQ0hJMjAyNTA1MjIyMDI1MDUyNzE3MTU0NhISemdmd3p3aHljMjAyNDA2MDE3Ggh5ZjVxdWhpbA%3D%3D" target="_blank" class="resource-item">
+                <img src="img/wanfang-logo.png" alt="万方数据" class="resource-icon">
+                <span class="resource-text">万方数据</span>
+            </a>
+            <a href="https://cssrac.nju.edu.cn/cpzx/zwshkxywsy/index.html" target="_blank" class="resource-item">
+                <img src="img/cssci-logo.png" alt="CSSCI" class="resource-icon">
+                <span class="resource-text">CSSCI来源期刊</span>
+            </a>
+            <a href="https://ncpssd.org/Literature/articlelist?sType=0&search=KElLVEU9IuiusOW9lemdnumBl+S/neaKpOWFiOihjOiAheeahOi2s+i/ueKAlOKAlOOAiuS5jOS4meWuieWbnuW/huW9leOAi+S5puWQjiIgT1IgSUtQWVRFPSLorrDlvZXpnZ7pgZfkv53miqTlhYjooYzogIXnmoTotrPov7nigJTigJTjgIrkuYzkuJnlronlm57lv4blvZXjgIvkuablkI4iICBPUiBJS1NUPSLorrDlvZXpnZ7pgZfkv53miqTlhYjooYzogIXnmoTotrPov7nigJTigJTjgIrkuYzkuJnlronlm57lv4blvZXjgIvkuablkI4iIE9SIElLRVQ9IuiusOW9lemdnumBl+S/neaKpOWFiOihjOiAheeahOi2s+i/ueKAlOKAlOOAiuS5jOS4meWuieWbnuW/huW9leOAi+S5puWQjiIgT1IgSUtTRT0i6K6w5b2V6Z2e6YGX5L+d5oqk5YWI6KGM6ICF55qE6Laz6L+54oCU4oCU44CK5LmM5LiZ5a6J5Zue5b+G5b2V44CL5Lmm5ZCOIik=&searchname=6aKY5ZCNL+WFs+mUruivjT0i6K6w5b2V6Z2e6YGX5L+d5oqk5YWI6KGM6ICF55qE6Laz6L+54oCU4oCU44CK5LmM5LiZ5a6J5Zue5b+G5b2V44CL5Lmm5ZCOIg==&nav=0&ajaxKeys=6K6w5b2V6Z2e6YGX5L+d5oqk5YWI6KGM6ICF55qE6Laz6L+54oCU4oCU44CK5LmM5LiZ5a6J5Zue5b+G5b2V44CL5Lmm5ZCO" target="_blank" class="resource-item">
+                <img src="img/npm-logo.png" alt="国家哲学社会科学学术期刊数据库" class="resource-icon">
+                <span class="resource-text">国家哲学社会科学文献中心</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 作者简介 -->
+    <div class="sidebar-widget author-widget">
+        <div class="author-avatar">
+            <img src="img/wubingan.jpg" alt="乌丙安先生照片" class="avatar-image">
+        </div>
+        <h3 class="widget-title">作者简介</h3>
+        <p class="author-bio">
+            乌丙安（1929-2018），辽宁大学教授，中国民俗学学科奠基人之一，长期致力于中国民俗学理论与实践研究。
+        </p>
+        <div class="author-stats">
+            <div class="stat-item">
+                <span class="stat-count">42</span>
+                <span class="stat-label">学术著作</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-count">187</span>
+                <span class="stat-label">学术论文</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-count">36</span>
+                <span class="stat-label">田野调查</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 相关阅读 -->
+    <div class="sidebar-widget">
+        <h3 class="widget-title">相关阅读</h3>
+        <ul class="related-articles">
+            <li class="related-item">
+                <a href="news2.html" class="related-link">
+                    <img src="img/news2.jpg" alt="研究谫论" class="related-thumb">
+                    <div class="related-content">
+                        <h4 class="related-title">守土有责，拓土有方：乌丙安学术研究谫论</h4>
+                        <span class="related-date">2023-03-20</span>
+                    </div>
+                </a>
+            </li>
+            <li class="related-item">
+                <a href="news3.html" class="related-link">
+                    <img src="img/news3.jpg" alt="生涯回顾" class="related-thumb">
+                    <div class="related-content">
+                        <h4 class="related-title">守护文化记忆——乌丙安学术生涯回顾</h4>
+                        <span class="related-date">2018-11-15</span>
+                    </div>
+                </a>
+            </li>
+            <li class="related-item">
+                <a href="news4.html" class="related-link">
+                    <img src="img/news4.jpg" alt="访谈录" class="related-thumb">
+                    <div class="related-content">
+                        <h4 class="related-title">“俗信”概念的确立与“妈祖信俗”申遗——乌丙安教授访谈录</h4>
+                        <span class="related-date">2018-03-20</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 标签云 -->
+    <div class="sidebar-widget">
+        <h3 class="widget-title">学术标签</h3>
+        <div class="tag-cloud">
+            <a href="#" class="tag-cloud-item">民俗学理论</a>
+            <a href="#" class="tag-cloud-item">非物质文化遗产</a>
+            <a href="#" class="tag-cloud-item">民间文学</a>
+            <a href="#" class="tag-cloud-item">田野调查</a>
+            <a href="#" class="tag-cloud-item">文化人类学</a>
+            <a href="#" class="tag-cloud-item">民间信仰</a>
+            <a href="#" class="tag-cloud-item">传统节日</a>
+            <a href="#" class="tag-cloud-item">民俗学史</a>
+            <a href="#" class="tag-cloud-item">口头传统</a>
+            <a href="#" class="tag-cloud-item">物质文化</a>
+        </div>
+    </div>
+</div>
+        
+    </div>
+
+    <!-- 页脚（与主页完全相同） -->
+    <div class="footer">
+        <div class="footer-container">
+            <p>地址：沈阳市皇姑区崇山中路66号 | 邮编：110036</p>
+            <div class="footer-links">
+                <a href="privacy.html">隐私声明</a>
+                <a href="sitemap.html">网站地图</a>
+                <a href="contact.html">联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+                // 全局搜索逻辑
+        <!-- 其他页面的搜索框 -->
+
+
+
+function redirectToSearch() {
+    const keyword = document.getElementById('searchInput').value.trim();
+    if (keyword) {
+        window.location.href = `research.html`;
+    } else {
+        // 关键词为空时的处理
+        alert('请输入搜索关键词');
+    }
+    return false; // 阻止链接默认行为
+}
+    </script>
+</body>
+</html>

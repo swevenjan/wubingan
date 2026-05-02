@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资料下载 - 乌丙安思想数字研究中心</title>
+    <!-- 引入本地构建的 Tailwind CSS 样式 -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <!-- Font Awesome 保持 CDN 引入（生产环境建议下载至本地） -->
+    <link href="lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="lib/Chart.js-4.4.8/dist/chart.umd.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <img src="./img/logo/logo.png" alt="辽宁大学logo" class="logo-img">
+                    乌丙安思想数字研究中心
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li>
+                    <a href="#">中心概况</a>
+                    <ul class="submenu">
+                        <li><a href="intro.html">机构简介</a></li>
+                        <li><a href="team.html">研究团队</a></li>
+                        <li><a href="history.html">历史沿革</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">学术研究</a>
+                    <ul class="submenu">
+                        <li><a href="#">核心思想</a></li>
+                        <li><a href="#">文献整理</a></li>
+                        <li><a href="#">最新成果</a></li>
+                    </ul>
+                </li>
+                <li><a href="field.html">田野调查</a></li>
+                <li><a href="news.html">学术动态</a></li>
+                <li><a href="download.html">资料下载</a></li>
+            </ul>
+           <div class="search-box">
+    <input type="text" class="search-input" id="searchInput" placeholder="全局搜索..."/>
+    <a href="#" class="search-btn" onclick="redirectToSearch()">搜索</a>
+</div>
+        </div>
+    </div>
+
+    <!-- 主体内容区 -->
+    <div class="main-content download-page" style="margin-top: 110px;">
+        <!-- 左侧PDF文件列表 -->
+        <div class="pdf-list-section">
+            <h2 class="section-title">资料下载列表</h2>
+            <ul id="pdfList">
+                <li><a href="#" data-id="0">乌丙安系列著作</a></li>
+                <li><a href="#" data-id="1">第一卷 中国民俗学</a></li>
+                <li><a href="#" data-id="2">第二卷 民俗学原理</a></li>
+                <li><a href="#" data-id="3">第三卷 民俗学丛话</a></li>
+                <li><a href="#" data-id="4">第四卷 中国民间信仰</a></li>
+                <li><a href="#" data-id="5">第五卷 萨满信仰研究</a></li>
+                <li><a href="#" data-id="6">第六卷 民间口头传承</a></li>
+                <li><a href="#" data-id="7">第七卷 民俗文化综论</a></li>
+                <li><a href="#" data-id="8">第八卷 民俗遗产评论</a></li>
+            </ul>
+        </div>
+
+        <!-- 右侧乌丙安著作介绍 -->
+        <div class="pdf-preview-section">
+            <h2 class="section-title">乌丙安著作介绍</h2>
+            <div id="bookDetail">
+                <div class="book-cover">
+                    <img src="img/book.jpg" alt="乌丙安著作封面" id="bookCover">
+                </div>
+                <div class="book-info">
+                    <h3 id="bookTitle">乌丙安民俗研究文集</h3>
+                    <p class="book-meta">
+                        <span><i class="fa fa-user"></i> 作者：乌丙安</span>
+                        <span><i class="fa fa-calendar"></i> 出版年份：2014</span>
+                        <span><i class="fa fa-book"></i> 出版社：长春出版社</span>
+                    </p>
+                    <div class="book-desc">
+                        <p id="bookDesc">
+                            本中心收录了乌丙安先生生前发表的重要学术论文，涵盖民俗学理论、民同文学、非物质文化遍产等多个领域，集中体现了作者在民俗学研究方面的学术思想和理论贡献。《乌丙安民俗研究文集》是我国著名民俗学家乌丙安先生在民俗学、民间文学、非物质文化遗产等领域的理论、方法或与之相关专业工作实践研究上具有里程碑意义的代表性著作。全书共分八卷：第一卷《中国民俗学》，第二卷《民俗学原理》，第三卷《民俗学丛话》，第四卷《中国民间信仰》，第五卷《萨满信仰研究》，第六卷《民间口头传承》，第七卷《民俗文化综论》，第八卷《民俗遗产评论》。
+                        </p>
+                    </div>
+                    <div class="book-stats">
+                        <h4>学术影响力</h4>
+                        <canvas id="bookChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="book-download">
+                        <a href="#" class="download-btn" id="downloadBtn">
+                            <i class="fa fa-download"></i> 查看详细信息
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <div class="footer-container">
+            <p>地址：沈阳市皇姑区崇山中路66号 | 邮编：110036</p>
+            <div class="footer-links">
+                <a href="privacy.html">隐私声明</a>
+                <a href="sitemap.html">网站地图</a>
+                <a href="contact.html">联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 初始化Chart.js图表
+            const ctx = document.getElementById('bookChart').getContext('2d');
+            // 图表数据
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['引用次数', '被下载量', '学术论文引用', '教学使用'],
+                    datasets: [{
+                        label: '学术指标',
+                        data: [1200, 8500, 420, 350],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // 书籍数据
+            const books = [
+                {
+                    id: 0,
+                    title: '乌丙安民俗研究文集',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本中心收录了乌丙安先生生前发表的重要学术论文，涵盖民俗学理论、民同文学、非物质文化遍产等多个领域，集中体现了作者在民俗学研究方面的学术思想和理论贡献。《乌丙安民俗研究文集》是我国著名民俗学家乌丙安先生在民俗学、民间文学、非物质文化遗产等领域的理论、方法或与之相关专业工作实践研究上具有里程碑意义的代表性著作。全书共分八卷：第一卷《中国民俗学》，第二卷《民俗学原理》，第三卷《民俗学丛话》，第四卷《中国民间信仰》，第五卷《萨满信仰研究》，第六卷《民间口头传承》，第七卷《民俗文化综论》，第八卷《民俗遗产评论》。',
+                    cover: 'img/book.jpg',
+                    stats: [1200, 8500, 420, 350]
+                },
+                {
+                    id: 1,
+                    title: '第一卷 中国民俗学',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书作者对于民俗学做了大量而细致的研究，研究触角深入到民间生活的各个层面，书中将经济的民俗、社会的民俗、信仰的民俗、游艺的民俗等各种民俗类型都给予了详细剖析，并列举出了许多生动的事例。',
+                    cover: 'img/book1.jpg',
+                    stats: [1500, 9200, 510, 420]
+                },
+                {
+                    id: 2,
+                    title: '第二卷 民俗学原理',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书系统从主体论、控制论、符号论、传承论四个维度深入剖析民俗现象的本质与规律，揭示民俗文化的生成机制与社会功能，为中国民俗学的理论体系建设奠定了重要基础。',
+                    cover: 'img/book2.jpg',
+                    stats: [1300, 7800, 450, 380]
+                },
+                {
+                    id: 3,
+                    title: '第三卷 民俗学丛话',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书分上下两篇，共32个专题。上篇立足民俗学基础理论，结合具体民俗事象解析；下篇为新增内容，聚焦民俗象征、地方文化、神话反思等前沿议题，兼具学术创新性与现实关怀。全书以“丛话”形式展开，将深奥理论融入生动案例，体现了作者“深入浅出”的学术风格。',
+                    cover: 'img/book3.jpg',
+                    stats: [950, 6500, 320, 280]
+                },
+                {
+                    id: 4,
+                    title: '第四卷 中国民间信仰',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书以“万灵崇拜”与“多神崇拜”为核心，剖析中国民间信仰中自然崇拜、幻想物崇拜、人物崇拜的多元形态。作者从 “万物有灵” 观念出发，结合56个民族的信仰实践，阐述了民间信仰与宗教的本质区别（如无系统教义、组织与专职神职），并揭示其在文化传承、社会控制中的现实功能。全书兼具历史纵深与当代观照，是理解中国民间文化基因的重要文本。',
+                    cover: 'img/book4.jpg',
+                    stats: [1800, 12000, 650, 520]
+                },
+                {
+                    id: 5,
+                    title: '第五卷 萨满信仰研究',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书以北方民族萨满信仰为研究对象，从自然崇拜、动物神灵、灵魂观念及萨满角色四大维度，构建了萨满文化的完整体系。作者基于满族、鄂温克族、蒙古族等多民族的田野资料，结合神话传说与仪式实践，剖析萨满信仰作为“自然宗教”的本质特征，展现其在北方民族历史中的文化意义。',
+                    cover: 'img/book5.jpg',
+                    stats: [1100, 8300, 380, 310]
+                },
+                {
+                    id: 6,
+                    title: '第六卷 民间口头传承',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书从理论层面剖析民间文学的“口头性”、“集体性”、“变异性”等核心特征，同时结合神话、传说、故事、歌谣等具体体裁，揭示其在文化传承与社会生活中的功能，是中国民间文学理论体系化建构的重要成果。',
+                    cover: 'img/book6.jpg',
+                    stats: [1800, 12000, 650, 520]
+                },
+                {
+                    id: 7,
+                    title: '第七卷 民俗文化综论',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书以“民俗文化与现代化”为核心命题，主要包括民俗篇、民族篇和民艺篇三大板块。上篇聚焦民俗学基础理论与生态民俗、区域文化等宏观议题；中篇深入北方民族通婚、萨满信仰等具体民俗事象；下篇探讨民间文艺的传承与比较研究，为理解中国民俗的现代演变提供了多维视角。',
+                    cover: 'img/book7.jpg',
+                    stats: [1800, 12000, 650, 520]
+                },
+                {
+                    id: 8,
+                    title: '第八卷 民俗遗产评论',
+                    year: '2014',
+                    publisher: '长春出版社',
+                    desc: '本书作者对于民俗遗产的保护和修复做了大量而细致的研究，研究触角深入到民间生活的各个层面，书中将少数民族遗产、烟花爆竹的政策、文化文化保护区以及农业文化遗产等都给予了详细点评，也提出了针对性的保护策略，为非物质文化遗产保护提供了兼具学术深度与实践价值的理论框架。',
+                    cover: 'img/book8.jpg',
+                    stats: [1800, 12000, 650, 520]
+                }
+            ];
+
+            // 更新书籍信息函数
+            function updateBookInfo(bookId) {
+                const book = books.find(b => b.id == bookId) || books[0];
+                // 更新UI
+                document.getElementById('bookTitle').textContent = book.title;
+                document.getElementById('bookCover').src = book.cover;
+                document.getElementById('bookDesc').textContent = book.desc;
+                // 更新元数据
+                const meta = document.querySelector('.book-meta');
+                meta.innerHTML = `
+                    <span><i class="fa fa-user"></i> 作者：乌丙安</span>
+                    <span><i class="fa fa-calendar"></i> 出版年份：${book.year}</span>
+                    <span><i class="fa fa-book"></i> 出版社：${book.publisher}</span>
+                `;
+                // 更新图表
+                chart.data.datasets[0].data = book.stats;
+                chart.update();
+            }
+
+            // 下载按钮点击事件
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                // 获取当前选中的书籍ID
+                const activeLink = document.querySelector('#pdfList a.active');
+                if (activeLink) {
+                    const bookId = activeLink.getAttribute('data-id');
+                    simulateDownload(bookId);
+                } else {
+                    alert('请先选择一本资料');
+                }
+            });
+
+            // 模拟下载功能
+            function simulateDownload(bookId) {
+            // 根据书籍ID获取对应的文件名，这里定义了书籍数据数组，每个对象包含id和filename等属性
+            const books = [
+                { id: 1, filename: '中国民俗学（第一卷）.pdf' },
+                { id: 2, filename: '民俗学原理（第二卷）.pdf' },
+                { id: 3, filename: '民俗学丛话 (第三卷).pdf' },
+                { id: 4, filename: '中国民间信仰 (第四卷).pdf' },
+                { id: 5, filename: '萨满信仰研究 (第五卷).pdf' },
+                { id: 6, filename: '民间口头传承（第六卷）.pdf' },
+                { id: 7, filename: '民俗文化综论（第七卷）.pdf' },
+                { id: 8, filename: '民俗遗产评论 (第八卷).pdf' },
+                { id: 0, filename: '乌丙安书籍介绍.pdf' }
+              
+            ];
+              // 如果bookId不存在（比如页面刚加载时，还未点击列表项选择具体书籍），设置默认打开的书籍
+            if (!bookId) {
+                bookId = 0; // 这里假设对应乌丙安书籍介绍.pdf的bookId为9，根据实际情况调整
+            }
+    
+                const book = books.find(b => b.id == bookId);
+            if (book) {
+                // 创建一个临时的 <a> 标签
+                const link = document.createElement('a');
+                link.href = `pdfs/${book.filename}`;  // 设置PDF文件路径
+                link.target = '_blank';  // 在新窗口打开
+                link.style.display = 'none';  // 隐藏链接
+                
+                // 将链接添加到页面并触发点击
+                document.body.appendChild(link);
+                link.click();
+                
+                // 移除临时链接
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                }, 100);
+            }
+            }
+
+            // 点击左侧列表项切换书籍信息
+            const pdfLinks = document.querySelectorAll('#pdfList a');
+            pdfLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const bookId = this.getAttribute('data-id');
+                    updateBookInfo(bookId);
+                    // 添加选中状态样式
+                    pdfLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // 设置默认选中项为"乌丙安书籍介绍"
+            const defaultLink = pdfLinks[0]; 
+            defaultLink.classList.add('active');
+
+        });
+
+         // 全局搜索逻辑
+        <!-- 其他页面的搜索框 -->
+
+
+
+function redirectToSearch() {
+    const keyword = document.getElementById('searchInput').value.trim();
+    if (keyword) {
+        window.location.href = `research.html`;
+    } else {
+        // 关键词为空时的处理
+        alert('请输入搜索关键词');
+    }
+    return false; // 阻止链接默认行为
+}
+
+    </script>
+</body>
+</html>
