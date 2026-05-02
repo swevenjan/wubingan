@@ -1,0 +1,466 @@
+/* 全局重置与基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "宋体", "SimSun", serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* 导航栏 */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    z-index: 1000;
+    height: 70px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    gap: 40px;
+    height: 100%;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    font-size: 16px;
+    flex-grow: 1;
+    overflow-x: visible;
+    position: relative;
+}
+
+.nav-links li {
+    flex-shrink: 0;
+    white-space: nowrap;
+    position: relative;
+}
+
+.nav-links li:hover .submenu {
+    display: block;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    padding: 10px 15px;
+    min-width: 150px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1002;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.submenu li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.search-input {
+    padding: 6px 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.search-btn {
+    padding: 6px 15px;
+    background: #c00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 轮播图（首页样式） */
+.slider {
+    margin-top: 70px;
+    width: 100%;
+    height: 40vh;
+    max-height: 800px;
+    position: relative;
+    overflow: hidden;
+    z-index: 999;
+}
+
+.slider-images {
+    height: 100%;
+    display: flex;
+    transition: transform 0.5s;
+}
+
+.slider-img {
+    min-width: 100%;
+    height: 100%;
+    background: no-repeat center/cover;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 999;
+}
+
+.slider-btn.prev {
+    left: 0;
+}
+
+.slider-btn.next {
+    right: 0;
+}
+
+.slider-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 999;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.indicator.active {
+    background: #c00;
+}
+
+/* 主体内容区（首页样式） */
+.main-content {
+    max-width: 100%;
+    margin: 40px auto 40px;
+    padding: 0 15px;
+    display: grid;
+    grid-template-columns: minmax(300px, 3fr) minmax(150px, 1fr);
+    gap: 30px;
+    flex: 1 0 auto;
+}
+
+.main-section {
+    border: 1px solid #e5e5e5;
+    padding: 25px;
+}
+
+.section-title {
+    font-size: 20px;
+    color: #222;
+    border-bottom: 2px solid #c00;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.news-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.news-list li:last-child {
+    border-bottom: none;
+}
+
+.news-date {
+    color: #666;
+    font-size: 14px;
+}
+
+.sidebar {
+    border: 1px solid #e5e5e5;
+    padding: 25px;
+}
+
+.sidebar .section-title {
+    margin-bottom: 15px;
+}
+
+.link-list li {
+    padding: 8px 0;
+    padding-left: 15px;
+    position: relative;
+}
+
+.link-list li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: #666;
+}
+
+/* 资料下载页样式 */
+.main-content.download-page {
+    grid-template-columns: minmax(200px, 1fr) minmax(400px, 3fr);
+}
+
+.pdf-list-section {
+    border: 1px solid #e5e5e5;
+    padding: 25px;
+}
+
+.pdf-preview-section {
+    border: 1px solid #e5e5e5;
+    padding: 25px;
+}
+
+#pdfList {
+    list-style: none;
+    padding: 0;
+}
+
+#pdfList li {
+    padding: 12px 0;
+    border-bottom: 1px dashed #e5e5e5;
+    cursor: pointer;
+}
+
+#pdfList li:hover {
+    color: #c00;
+}
+
+#pdfList li:last-child {
+    border-bottom: none;
+}
+
+/* 书籍详情样式 */
+#bookDetail {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-cover {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.book-cover img {
+    max-width: 200px;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.book-meta {
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.book-meta span {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 5px;
+}
+
+.book-desc {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.book-stats {
+    margin-bottom: 20px;
+}
+
+.book-stats h4 {
+    margin-bottom: 10px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #c00;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #a00;
+}
+
+/* 页脚 */
+.footer {
+    background: #333;
+    color: #999;
+    padding: 30px 20px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .nav-links {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 10px;
+    }
+
+    .nav-links li {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .submenu {
+        left: auto;
+        right: 0;
+    }
+
+    .logo {
+        font-size: 20px;
+        gap: 8px;
+    }
+
+    .logo-img {
+        height: 30px;
+    }
+
+    .main-content {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+        margin-top: 100px !important;
+    }
+
+    .main-content.download-page {
+        grid-template-columns: 1fr;
+    }
+
+    .main-section,
+    .sidebar {
+        padding: 20px;
+    }
+
+    .slider {
+        height: 30vh;
+        max-height: 400px;
+    }
+
+    .search-input {
+        width: 120px;
+    }
+
+    .book-cover img {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .nav-links {
+        gap: 20px;
+    }
+
+    .search-input {
+        width: 150px;
+    }
+}
+
+@media (min-width: 1800px) {
+    .main-content,
+    .footer-container {
+        max-width: 1600px;
+    }
+
+    .slider {
+        height: 50vh;
+        max-height: 1000px;
+    }
+}
+/* 在styles.css中添加以下样式 */
+#pdfList a.active {
+    color: #c00;
+    font-weight: bold;
+}
+
+/* 在styles.css中添加 */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-link:hover {
+    color: #c00;
+}
+
